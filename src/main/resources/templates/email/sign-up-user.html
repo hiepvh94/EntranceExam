@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+</head>
+<body>
+<div>
+    <div style="width: 100%; padding: 24px 0 16px 0; background-color: #f5f5f5; text-align: center;">
+        <div style="display: inline-block; width: 90%; max-width: 680px; min-width: 280px; text-align: left; font-family: Roboto, Arial, Helvetica, sans-serif;">
+            <div dir="ltr" style="height: 0px;">&nbsp;</div>
+            <div style="display: block; padding: 0 2px;">&nbsp;</div>
+            <div style="border-left: 1px solid #F5F5F5; border-right: 1px solid #F5F5F5;">
+                <div style="width: 100%; background-color: #8bc53f; height: 5px;">&nbsp;</div>
+                <div dir="ltr"
+                     style="padding: 24px 32px 24px 32px; background: #fff; border-right: 1px solid #eaeaea; border-left: 1px solid #eaeaea;">
+                    <div style="font-size: 14px; line-height: 18px; color: #444; padding-bottom: 20px;">
+                        <div th:inline="text">
+                            Hi <strong>[[${fullName}]]</strong>,
+                            <br><br>
+                            You sign up my system with <strong>[[${email}]]</strong>,
+                            <br>
+                            <br><br>
+                            Thanks and have a great day!
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
