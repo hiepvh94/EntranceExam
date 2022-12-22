@@ -98,14 +98,6 @@ public class LoanServiceImpl implements LoanService {
 //           management.clear();
            management.add(newManagement);
         }
-//        LoanManagement management = LoanManagement.builder()
-//                .facility(facility)
-//                .loanType(loanType)
-//                .paymentMode(paymentMode)
-//                .startDate(LocalDate.now())
-//                .endDate(LocalDate.now().plusMonths(LoanConstants.EXPIRED_LOAN_TIME))
-//                .currentAmount(loanRequest.getAmount())
-//                .build();
         loanManagementRepository.save(management.get(0));
 
     }

@@ -1,6 +1,5 @@
 package loan.management.service.user;
 
-import loan.management.constant.EmailConstants;
 import loan.management.model.entity.user.User;
 import loan.management.repository.UserRepository;
 import loan.management.utils.ThreadUtil;
@@ -11,7 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 import loan.management.model.dto.response.user.UserResponses;
 import loan.management.model.filter.UserFilter;
-import loan.management.service.email.IEmailService;
 
 import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -28,7 +26,6 @@ import java.util.Objects;
 public class UserServiceImpl implements UserService{
 
     private final UserRepository userRepository;
-    private final IEmailService emailService;
     private final EntityManager entityManager;
     @Override
     public Boolean existsByUsername(String username) {
@@ -55,23 +52,7 @@ public class UserServiceImpl implements UserService{
     @Override
     @Transactional
     public User save(User user) {
-        ThreadUtil.runAsync(() -> sendEmailSignUpUser(user));
-
         return userRepository.save(user);
-    }
-
-    private void sendEmailSignUpUser(User user){
-        String subject = "Sign Up User";
-        Map<String, Object> emailContent = new HashMap<>();
-
-        emailContent.put(EmailConstants.EMAIL, user.getEmail());
-        emailContent.put(EmailConstants.FULLNAME, user.getFullName());
-
-        emailService.sendEmail(new String[]{user.getEmail()}
-                , new String[0]
-                , subject
-                , EmailConstants.SIGN_UP_USER_TEMPLATE_MAIL
-                , emailContent);
     }
 
     @Override

@@ -13,11 +13,6 @@ public interface LoanManagementRepository extends JpaRepository<LoanManagement, 
     List<LoanManagement> findByFacility_Applicant_Id(String id);
 
     List<LoanManagement> findByFacility_IdAndLoanType_Id(String id, String id1);
-    
-
-//   List<LoanManagement> findAllByFacilityIdAndLoanTypeId(String fromString, String loanType);
-
-//    List<LoanManagement> findAllByFacility(String id);
 
     List<LoanManagement> findByFacility_Id(String id);
 
