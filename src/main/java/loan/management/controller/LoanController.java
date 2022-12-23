@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import loan.management.model.dto.response.loan.LoanManagement;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -34,13 +35,13 @@ public class LoanController {
         return null;
     }
 
-    @PostMapping("/applicant/{id}/loans-management")
+    @GetMapping("/applicant/{id}/loans-management")
     public ResponseEntity getTotalForApplicant(@PathVariable(name = "id") String applicantId){
         List<loan.management.model.entity.LoanManagement> loanManagements = loanService.getLoanTotal(applicantId);
         return ResponseEntity.ok().body(LoanManagement.entitiesDTO(loanManagements));
     }
 
-    @PostMapping("/applicant/{id}/history")
+    @GetMapping("/applicant/{id}/history")
     public ResponseEntity getHisotryForApplicant(@PathVariable(name = "id") String applicantId){
         List<PaymentHistory> paymentDTOS = loanService.getLoanHistory(applicantId);
         return ResponseEntity.ok().body(paymentDTOS);
