@@ -34,7 +34,7 @@ public class LoanServiceImpl implements LoanService {
 
     @Transactional
     @Override
-    public void lendingLoanForFacility(LoanRequest loanRequest){
+    public void lendingLoanForFacility(LoanRequest loanRequest) {
         BigDecimal predictAmount = BigDecimal.ZERO;
 
         Facility facility = facilityRepository.findByNumber(loanRequest.getFacilityCode()).orElseThrow(
@@ -47,24 +47,24 @@ public class LoanServiceImpl implements LoanService {
 
         List<LoanManagement> management = loanManagementRepository.findByFacility_IdAndLoanType_Id(facility.getId(), loanType.getId());
 
-        if(management.size() > 0){
-             predictAmount = management.get(0).getCurrentAmount().add(loanRequest.getAmount());
-            if(predictAmount.compareTo(loanType.getLimit()) > 0){
+        if (management.size() > 0) {
+            predictAmount = management.get(0).getCurrentAmount().add(loanRequest.getAmount());
+            if (predictAmount.compareTo(loanType.getLimit()) > 0) {
                 throw new IllegalArgumentException(ErrorConstants.AMOUNT_NOT_AVAILABLE);
             }
         } else {
             predictAmount = predictAmount.add(loanRequest.getAmount());
-            if(predictAmount.compareTo(loanType.getLimit()) > 0){
+            if (predictAmount.compareTo(loanType.getLimit()) > 0) {
                 throw new IllegalArgumentException(ErrorConstants.AMOUNT_NOT_AVAILABLE);
             }
         }
 
-        List<LoanManagement> managements= loanManagementRepository.findByFacility_Id(facility.getId());
+        List<LoanManagement> managements = loanManagementRepository.findByFacility_Id(facility.getId());
         BigDecimal realTotalAmount = BigDecimal.ZERO;
-        for (LoanManagement loan: managements){
+        for (LoanManagement loan : managements) {
             realTotalAmount.add(loan.getCurrentAmount());
         }
-        if(realTotalAmount.compareTo(facility.getTotalLimit()) > 0){
+        if (realTotalAmount.compareTo(facility.getTotalLimit()) > 0) {
             throw new IllegalArgumentException(ErrorConstants.AMOUNT_NOT_AVAILABLE);
         }
 
